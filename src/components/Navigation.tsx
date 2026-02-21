@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { Moon, Ghost, Sword, Map, BookOpen, GraduationCap, Menu, X, Sun } from "lucide-react";
+import { Moon, Ghost, Sword, Map, BookOpen, GraduationCap, Heart, Menu, X, Sun } from "lucide-react";
 import logoImg from "figma:asset/1906305b5d234fcf82e6d60ae0d0632407c8e048.png";
 import { useTheme } from "./ThemeProvider";
 
@@ -17,6 +17,7 @@ export const Navigation = () => {
     { id: "floors", path: "/floors", label: "Tartarus", icon: <Map size={20} /> },
     { id: "story", path: "/story", label: "Story", icon: <BookOpen size={20} /> },
     { id: "classroom", path: "/classroom", label: "Classroom", icon: <GraduationCap size={20} /> },
+    { id: "social-links", path: "/social-links", label: "Social Links", icon: <Heart size={20} /> },
   ];
 
   const getActiveTab = (pathname: string) => {

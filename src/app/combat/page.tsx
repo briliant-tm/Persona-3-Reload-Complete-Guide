@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Sword } from "lucide-react";
+import { Sword, Zap, Shield, Sparkles, ChevronDown, ChevronUp, Users } from "lucide-react";
 import { SectionTitle } from "../../components/SectionTitle";
 import { Card } from "../../components/Card";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { ELEMENTS } from "../../lib/data/combat";
+import { PARTY_MEMBERS } from "../../lib/data/party";
 import { useTheme } from "../../components/ThemeProvider";
 
 import image_21759f992f0d7304d758e12635af8d6d001286fa from 'figma:asset/21759f992f0d7304d758e12635af8d6d001286fa.png';
@@ -126,6 +127,7 @@ export default function CombatPage() {
               exit={{ opacity: 0, y: -20 }}
               className="space-y-8"
             >
+              {/* Hero Banner */}
               <div className="relative w-full h-64 md:h-80 rounded-xl overflow-hidden shadow-2xl group">
                 <ImageWithFallback 
                   src={image_21759f992f0d7304d758e12635af8d6d001286fa}
@@ -144,43 +146,48 @@ export default function CombatPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="md:col-span-2 space-y-6">
-                  <h3 className={`text-2xl font-bold ${theme === 'dark' ? "text-[#51eefc]" : "text-[#1269cc]"}`}>Ultimate Skills</h3>
-                  <p className={`text-lg leading-relaxed ${theme === 'dark' ? "text-gray-300" : "text-gray-700"}`}>
-                    Theurgy is a powerful new mechanic in Persona 3 Reload that acts as an "Ultimate Attack". 
-                    Unlike regular skills, Theurgy ignores enemy resistances (in most cases) and deals massive damage or provides superior support effects.
-                  </p>
-                  
-                  <h4 className={`text-xl font-bold mt-6 ${theme === 'dark' ? "text-white" : "text-[#0a1929]"}`}>How to Charge</h4>
-                  <ul className={`list-disc pl-6 space-y-2 ${theme === 'dark' ? "text-gray-300" : "text-gray-700"}`}>
-                    <li>The Theurgy gauge fills slowly when you attack or take actions.</li>
-                    <li>Each character has a <span className="font-bold text-[#51eefc]">Personality Trigger</span> that fills the gauge significantly faster.</li>
-                    <li>For example, Yukari's gauge fills when she heals, while Junpei's fills when he lands a critical hit.</li>
-                  </ul>
+              {/* Overview */}
+              <div className={`p-6 rounded-lg border ${theme === 'dark' ? "bg-[#0f2438] border-[#1269cc]/30" : "bg-white border-gray-200 shadow-lg"}`}>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="md:col-span-2 space-y-4">
+                    <h3 className={`text-2xl font-bold ${theme === 'dark' ? "text-[#51eefc]" : "text-[#1269cc]"}`}>Ultimate Skills</h3>
+                    <p className={`leading-relaxed ${theme === 'dark' ? "text-gray-300" : "text-gray-700"}`}>
+                      Theurgy is a powerful mechanic in Persona 3 Reload — each party member has unique ultimate attacks that ignore enemy resistances and deal massive damage or provide superior support effects.
+                    </p>
+                    <div className="flex flex-wrap gap-3 pt-2">
+                      <div className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm ${theme === 'dark' ? "bg-[#1269cc]/10 text-gray-300" : "bg-blue-50 text-gray-600"}`}>
+                        <Zap size={14} className={theme === 'dark' ? "text-[#51eefc]" : "text-[#1269cc]"} />
+                        Fills via actions in battle
+                      </div>
+                      <div className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm ${theme === 'dark' ? "bg-[#1269cc]/10 text-gray-300" : "bg-blue-50 text-gray-600"}`}>
+                        <Sparkles size={14} className={theme === 'dark' ? "text-[#51eefc]" : "text-[#1269cc]"} />
+                        Each character has a unique trigger
+                      </div>
+                      <div className={`flex items-center gap-2 px-3 py-1.5 rounded text-sm ${theme === 'dark' ? "bg-[#1269cc]/10 text-gray-300" : "bg-blue-50 text-gray-600"}`}>
+                        <Shield size={14} className={theme === 'dark' ? "text-[#51eefc]" : "text-[#1269cc]"} />
+                        Most bypass resistances
+                      </div>
+                    </div>
+                  </div>
+                  <div className={`p-4 rounded-lg ${theme === 'dark' ? "bg-[#0a1929] border border-[#1269cc]/20" : "bg-gray-50 border border-gray-100"}`}>
+                    <h4 className={`text-xs uppercase font-bold tracking-widest mb-2 ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>Party Members</h4>
+                    <div className="flex items-center gap-2">
+                      <Users size={16} className={theme === 'dark' ? "text-[#51eefc]" : "text-[#1269cc]"} />
+                      <span className={`text-2xl font-black ${theme === 'dark' ? "text-white" : "text-gray-900"}`}>{PARTY_MEMBERS.length}</span>
+                      <span className={`text-sm ${theme === 'dark' ? "text-gray-400" : "text-gray-500"}`}>playable characters</span>
+                    </div>
+                    <p className={`text-xs mt-2 ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>
+                      Click any card below to expand full details.
+                    </p>
+                  </div>
                 </div>
+              </div>
 
-                <div className={`p-6 rounded-lg h-fit ${theme === 'dark' ? "bg-[#1269cc]/10 border border-[#1269cc]/30" : "bg-blue-50 border border-blue-100"}`}>
-                  <h4 className={`font-bold mb-4 border-b pb-2 ${theme === 'dark' ? "text-white border-gray-700" : "text-[#0a1929] border-blue-200"}`}>Character Triggers</h4>
-                  <ul className="space-y-4 text-sm">
-                    <li>
-                      <span className="block font-bold text-[#51eefc]">Protagonist</span>
-                      <span className={theme === 'dark' ? "text-gray-400" : "text-gray-600"}>Summoning specific Personas.</span>
-                    </li>
-                    <li>
-                      <span className="block font-bold text-pink-400">Yukari</span>
-                      <span className={theme === 'dark' ? "text-gray-400" : "text-gray-600"}>Using healing skills.</span>
-                    </li>
-                    <li>
-                      <span className="block font-bold text-blue-400">Junpei</span>
-                      <span className={theme === 'dark' ? "text-gray-400" : "text-gray-600"}>Landing Critical hits.</span>
-                    </li>
-                    <li>
-                      <span className="block font-bold text-red-400">Akihiko</span>
-                      <span className={theme === 'dark' ? "text-gray-400" : "text-gray-600"}>Buffing self/allies or Debuffing enemies.</span>
-                    </li>
-                  </ul>
-                </div>
+              {/* Party Member Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {PARTY_MEMBERS.map((member, idx) => (
+                  <PartyMemberCard key={member.name} member={member} theme={theme} index={idx} />
+                ))}
               </div>
             </motion.div>
           )}
@@ -333,3 +340,108 @@ export default function CombatPage() {
     </div>
   );
 };
+
+// Party Member Card Component
+function PartyMemberCard({ member, theme, index }: { member: any, theme: string, index: number }) {
+  const [expanded, setExpanded] = useState(false);
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: Math.min(index * 0.05, 0.5), duration: 0.4 }}
+      className={`rounded-lg overflow-hidden border transition-all ${
+        theme === 'dark'
+          ? "bg-[#0f2438] border-[#1269cc]/30 hover:border-[#51eefc]/40"
+          : "bg-white border-gray-200 hover:border-[#1269cc]/50 shadow-sm"
+      }`}
+    >
+      {/* Header */}
+      <div className="p-5">
+        <div className="flex items-start justify-between mb-3">
+          <div>
+            <h4 className={`text-xl font-bold ${member.color}`}>{member.name}</h4>
+            <p className={`text-sm ${theme === 'dark' ? "text-gray-400" : "text-gray-500"}`}>{member.role}</p>
+          </div>
+          <div className={`text-right`}>
+            <span className={`text-xs font-bold uppercase tracking-wider ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>{member.arcana}</span>
+          </div>
+        </div>
+
+        {/* Persona & Weapon */}
+        <div className="flex flex-wrap gap-2 mb-3">
+          <span className={`text-xs px-2 py-1 rounded border ${theme === 'dark' ? "border-[#1269cc]/30 text-gray-300 bg-[#1269cc]/10" : "border-gray-200 text-gray-600 bg-gray-50"}`}>
+            {member.persona} → {member.evolvedPersona}
+          </span>
+          <span className={`text-xs px-2 py-1 rounded border ${theme === 'dark' ? "border-[#1269cc]/30 text-gray-300 bg-[#1269cc]/10" : "border-gray-200 text-gray-600 bg-gray-50"}`}>
+            {member.weaponType}
+          </span>
+          <span className={`text-xs px-2 py-1 rounded border ${theme === 'dark' ? "border-[#1269cc]/30 text-gray-300 bg-[#1269cc]/10" : "border-gray-200 text-gray-600 bg-gray-50"}`}>
+            {member.primaryElement}
+          </span>
+        </div>
+
+        {/* Theurgy Trigger */}
+        <div className={`p-3 rounded border-l-2 mb-3 ${theme === 'dark' ? "bg-[#0a1929]/50 border-[#51eefc]" : "bg-blue-50/50 border-[#1269cc]"}`}>
+          <span className={`text-xs uppercase font-bold tracking-wider block mb-1 ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>Theurgy Trigger</span>
+          <p className={`text-sm ${theme === 'dark' ? "text-gray-300" : "text-gray-600"}`}>{member.trigger}</p>
+        </div>
+
+        {/* Theurgies List */}
+        <div className="space-y-2">
+          {member.theurgies.map((t: any) => (
+            <div key={t.name} className={`flex items-start gap-3 p-2 rounded ${theme === 'dark' ? "bg-[#0a1929]/30" : "bg-gray-50"}`}>
+              <Sparkles size={14} className={`mt-0.5 shrink-0 ${member.color}`} />
+              <div>
+                <span className={`font-bold text-sm ${theme === 'dark' ? "text-white" : "text-gray-900"}`}>{t.name}</span>
+                <span className={`ml-2 text-xs px-1.5 py-0.5 rounded ${theme === 'dark' ? "bg-[#1269cc]/20 text-gray-400" : "bg-gray-200 text-gray-500"}`}>{t.element}</span>
+                <p className={`text-xs mt-0.5 ${theme === 'dark' ? "text-gray-400" : "text-gray-500"}`}>{t.effect}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Expand Toggle */}
+        <button
+          onClick={() => setExpanded(!expanded)}
+          className={`w-full flex items-center justify-center gap-1 mt-3 pt-3 border-t text-xs uppercase tracking-wider font-bold cursor-pointer transition-colors ${
+            theme === 'dark' ? "border-[#1269cc]/20 text-gray-500 hover:text-[#51eefc]" : "border-gray-100 text-gray-400 hover:text-[#1269cc]"
+          }`}
+        >
+          {expanded ? "Hide Details" : "Strengths & Tips"}
+          {expanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+        </button>
+
+        <AnimatePresence>
+          {expanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden"
+            >
+              <div className="pt-3 space-y-3">
+                <div>
+                  <span className={`text-xs uppercase font-bold tracking-wider block mb-1.5 ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>Strengths</span>
+                  <ul className="space-y-1">
+                    {member.strengths.map((s: string, i: number) => (
+                      <li key={i} className={`flex items-start gap-2 text-sm ${theme === 'dark' ? "text-gray-300" : "text-gray-600"}`}>
+                        <span className="text-green-500 mt-0.5">✓</span>
+                        {s}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className={`p-3 rounded border ${theme === 'dark' ? "bg-[#0a1929] border-[#1269cc]/20" : "bg-gray-50 border-gray-100"}`}>
+                  <span className={`text-xs uppercase font-bold tracking-wider block mb-1 ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>Pro Tip</span>
+                  <p className={`text-sm ${theme === 'dark' ? "text-gray-300" : "text-gray-600"}`}>{member.tips}</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  );
+}

@@ -7,6 +7,7 @@ import FusionPage from "./app/fusion/page";
 import FloorsPage from "./app/floors/page";
 import StoryPage from "./app/story/page";
 import ClassroomPage from "./app/classroom/page";
+import SocialLinksPage from "./app/social-links/page";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { path: "floors", Component: FloorsPage },
       { path: "story", Component: StoryPage },
       { path: "classroom", Component: ClassroomPage },
+      { path: "social-links", Component: SocialLinksPage },
     ],
   },
 ]);
