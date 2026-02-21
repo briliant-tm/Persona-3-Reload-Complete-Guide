@@ -615,7 +615,7 @@ export default function CalculatorPage() {
               <h3 className={`font-bold text-lg mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
                 How to Unlock
               </h3>
-              <ol className={`space-y-3 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+              <ol className={`space-y-3 mb-6 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
                 <li className="flex gap-3">
                   <span className={`font-bold px-2.5 py-0.5 rounded text-sm ${theme === "dark" ? "bg-[#1269cc]/20 text-[#51eefc]" : "bg-blue-50 text-[#1269cc]"}`}>1</span>
                   <span>Fuse the required Persona pair in the Velvet Room.</span>
@@ -629,6 +629,14 @@ export default function CalculatorPage() {
                   <span>The Theurgy skill will appear in battle when requirements are met.</span>
                 </li>
               </ol>
+
+              {/* Important Note */}
+              <div className={`p-4 rounded-lg border-l-4 ${theme === "dark" ? "border-[#51eefc] bg-[#0f2438]" : "border-[#1269cc] bg-blue-50"}`}>
+                <p className={`font-bold text-sm mb-2 ${theme === "dark" ? "text-[#51eefc]" : "text-[#1269cc]"}`}>💡 Important</p>
+                <p className={`text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                  Once a Theurgy skill is unlocked, it remains available for future battles even if the required Personas are replaced, fused with other Personas, or no longer in your party. The skill is permanently learned by the protagonist.
+                </p>
+              </div>
             </Card>
           </motion.div>
         )}      </AnimatePresence>
