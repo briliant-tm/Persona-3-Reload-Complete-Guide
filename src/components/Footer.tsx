@@ -13,8 +13,8 @@ export const Footer = () => {
         </div>
         
         <div className={`text-sm text-center md:text-right ${theme === 'dark' ? "text-gray-500" : "text-gray-600"}`}>
-          <p>&copy; 2026 Fan Project. Not affiliated with Atlus or SEGA.</p>
-          <p className="mt-1">Design inspired by Persona 3 Reload.</p>
+          <p>&copy; 2026 LZ Corporation Ltd. All Rights Reserved.</p>
+          <p className="mt-1 text-xs">Simplifying connectivity. Secure. Scalable. Modern.</p>
         </div>
       </div>
     </footer>
