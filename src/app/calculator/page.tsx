@@ -37,7 +37,7 @@ import {
 import { SectionTitle } from "../../components/SectionTitle";
 import { Card } from "../../components/Card";
 import { ARCANA_LIST, getFusionResult, findFusionPairs, type Arcana } from "../../lib/data/fusion";
-import { PERSONAS } from "../../lib/data/personas";
+import { PERSONAS, Persona } from "../../lib/data/personas";
 import { useTheme } from "../../components/ThemeProvider";
 
 const ARCANA_NUMERALS: Record<string, string> = {
