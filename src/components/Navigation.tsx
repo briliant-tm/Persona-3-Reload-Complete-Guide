@@ -43,7 +43,7 @@ export const Navigation = () => {
                <img src={logoImg} alt="P3R Logo" className="h-full w-auto object-contain" />
             </div>
             <span className={`font-bold text-xl tracking-wider transition-colors ${theme === 'dark' ? "text-white" : "text-[#0a1929]"}`}>
-              S.E.E.S. <span className="text-[#1269cc]">GUIDE</span>
+              LZ Corporation Ltd
             </span>
           </Link>
           

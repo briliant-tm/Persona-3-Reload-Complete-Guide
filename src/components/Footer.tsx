@@ -9,7 +9,7 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="flex items-center gap-2">
           <Moon className={theme === 'dark' ? "text-[#51eefc]" : "text-[#1269cc]"} />
-          <span className={`font-bold text-xl tracking-wider ${theme === 'dark' ? "text-white" : "text-gray-900"}`}>S.E.E.S. GUIDE</span>
+          <span className={`font-bold text-xl tracking-wider ${theme === 'dark' ? "text-white" : "text-gray-900"}`}>LZ Corporation Ltd</span>
         </div>
         
         <div className={`text-sm text-center md:text-right ${theme === 'dark' ? "text-gray-500" : "text-gray-600"}`}>
