@@ -60,7 +60,7 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
               <span className="text-green-400 text-xs font-bold uppercase bg-green-900/20 px-1.5 py-0.5 rounded">None</span>
             )}
           </div>
-        )}
+        </div>
 
         {persona.null && persona.null.length > 0 && (
           <div className={`flex items-center justify-between p-2 rounded border-l-2 border-blue-500 ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
@@ -100,8 +100,7 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
       <div className={`min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 transition-colors ${theme === 'dark' ? "bg-[#0a1929]" : "bg-gray-50"}`}>
         {/* SectionTitle is now rendered in the Server Component */}
         
-        {/* Removed Error Display */}
-        {/* Removed Loading State */}
+        {/* Removed Error Display and Loading State components explicitly */}
         <div className="flex flex-col md:flex-row gap-6 mb-8">
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
