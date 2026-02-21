@@ -100,7 +100,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "E:\\Kakak\\kULIAH\\pe a be peh\\Persona3reloadgameguide",
+    "outputFileTracingRoot": "E:\\Kakak\\kULIAH\\si tukang error ngentod\\Persona-3-Reload-Complete-Guide",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -293,11 +293,11 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.js",
     "turbopack": {
-      "root": "E:\\Kakak\\kULIAH\\pe a be peh\\Persona3reloadgameguide"
+      "root": "E:\\Kakak\\kULIAH\\si tukang error ngentod\\Persona-3-Reload-Complete-Guide"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "E:\\Kakak\\kULIAH\\pe a be peh\\Persona3reloadgameguide",
+  "appDir": "E:\\Kakak\\kULIAH\\si tukang error ngentod\\Persona-3-Reload-Complete-Guide",
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",

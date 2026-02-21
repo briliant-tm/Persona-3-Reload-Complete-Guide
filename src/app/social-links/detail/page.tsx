@@ -284,15 +284,20 @@ export default function SocialLinkDetailPage() {
                       </div>
                       <div>
                         <span className={`font-bold text-sm ${theme === "dark" ? "text-white" : "text-gray-900"}`}>{p.name}</span>
-                        <span className={`text-xs block ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>{p.type}</span>
+                        <span className={`text-xs block ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>{p.inherits}</span>
                       </div>
                     </div>
                     <div className="flex gap-1">
-                      {p.weak.length > 0 ? p.weak.map((w) => (
-                        <span key={w} className="text-red-400 text-[10px] font-bold uppercase bg-red-900/20 px-1 py-0.5 rounded">{w}</span>
-                      )) : (
-                        <span className="text-green-400 text-[10px] font-bold uppercase bg-green-900/20 px-1 py-0.5 rounded">—</span>
-                      )}
+                      {(() => {
+                        const weaknesses = Object.entries(p.resistances)
+                          .filter(([_, value]) => value === "Weak")
+                          .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1));
+                        return weaknesses.length > 0 ? weaknesses.map((w) => (
+                          <span key={w} className="text-red-400 text-[10px] font-bold uppercase bg-red-900/20 px-1 py-0.5 rounded">{w}</span>
+                        )) : (
+                          <span className="text-green-400 text-[10px] font-bold uppercase bg-green-900/20 px-1 py-0.5 rounded">—</span>
+                        );
+                      })()}
                     </div>
                   </div>
                 ))}

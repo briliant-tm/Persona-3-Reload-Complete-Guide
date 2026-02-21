@@ -35,7 +35,7 @@ import { SectionTitle } from "../../components/SectionTitle";
 import { Card } from "../../components/Card";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
 import { ELEMENTS } from "../../lib/data/combat";
-import { PARTY_MEMBERS } from "../../lib/data/party";
+import { PARTY_MEMBERS, type PartyMember, type Theurgy } from "../../lib/data/party";
 import { useTheme } from "../../components/ThemeProvider";
 
 import image_21759f992f0d7304d758e12635af8d6d001286fa from '../../assets/21759f992f0d7304d758e12635af8d6d001286fa.png';
@@ -366,7 +366,7 @@ export default function CombatPage() {
 };
 
 // Party Member Card Component
-function PartyMemberCard({ member, theme, index }: { member: any, theme: string, index: number }) {
+function PartyMemberCard({ member, theme, index }: { member: PartyMember, theme: string, index: number }) {
   const [expanded, setExpanded] = useState(false);
   
   return (
@@ -413,7 +413,7 @@ function PartyMemberCard({ member, theme, index }: { member: any, theme: string,
 
         {/* Theurgies List */}
         <div className="space-y-2">
-          {member.theurgies.map((t: any) => (
+          {member.theurgies.map((t: Theurgy) => (
             <div key={t.name} className={`flex items-start gap-3 p-2 rounded ${theme === 'dark' ? "bg-[#0a1929]/30" : "bg-gray-50"}`}>
               <Sparkles size={14} className={`mt-0.5 shrink-0 ${member.color}`} />
               <div>

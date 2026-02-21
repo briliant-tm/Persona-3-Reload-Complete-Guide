@@ -48,32 +48,46 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
       <div className="space-y-3">
         <div className={`flex items-center justify-between p-2 rounded ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
           <span className="text-gray-400 text-sm">Affinity</span>
-          <span className={`font-medium ${theme === 'dark' ? "text-white" : "text-gray-900"}`}>{persona.type}</span>
+          <span className={`font-medium ${theme === 'dark' ? "text-white" : "text-gray-900"}`}>{persona.inherits}</span>
         </div>
 
-        <div className={`flex items-center justify-between p-2 rounded border-l-2 border-red-500 ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
-          <span className="text-gray-400 text-sm">Weakness</span>
-          <div className="flex gap-1 flex-wrap justify-end">
-            {persona.weak && persona.weak.length > 0 ? persona.weak.map(w => (
-              <span key={w} className="text-red-400 text-xs font-bold uppercase bg-red-900/20 px-1.5 py-0.5 rounded">{w}</span>
-            )) : (
-              <span className="text-green-400 text-xs font-bold uppercase bg-green-900/20 px-1.5 py-0.5 rounded">None</span>
-            )}
-          </div>
-        </div>
-
-        {persona.null && persona.null.length > 0 && (
-          <div className={`flex items-center justify-between p-2 rounded border-l-2 border-blue-500 ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
-            <span className="text-gray-400 text-sm flex items-center gap-1">
-              <Shield size={12} /> Null
-            </span>
-            <div className="flex gap-1 flex-wrap justify-end">
-              {persona.null.map(n => (
-                <span key={n} className="text-blue-400 text-xs font-bold uppercase bg-blue-900/20 px-1.5 py-0.5 rounded">{n}</span>
-              ))}
+        {(() => {
+          const weaknesses = Object.entries(persona.resistances)
+            .filter(([_, value]) => value === "Weak")
+            .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1));
+          
+          return (
+            <div className={`flex items-center justify-between p-2 rounded border-l-2 border-red-500 ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
+              <span className="text-gray-400 text-sm">Weakness</span>
+              <div className="flex gap-1 flex-wrap justify-end">
+                {weaknesses.length > 0 ? weaknesses.map(w => (
+                  <span key={w} className="text-red-400 text-xs font-bold uppercase bg-red-900/20 px-1.5 py-0.5 rounded">{w}</span>
+                )) : (
+                  <span className="text-green-400 text-xs font-bold uppercase bg-green-900/20 px-1.5 py-0.5 rounded">None</span>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
+
+        {(() => {
+          const nulls = Object.entries(persona.resistances)
+            .filter(([_, value]) => value === "Null")
+            .map(([key]) => key.charAt(0).toUpperCase() + key.slice(1));
+          
+          return nulls.length > 0 ? (
+            <div className={`flex items-center justify-between p-2 rounded border-l-2 border-blue-500 ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
+              <span className="text-gray-400 text-sm flex items-center gap-1">
+                <Shield size={12} /> Null
+              </span>
+              <div className="flex gap-1 flex-wrap justify-end">
+                {nulls.map(n => (
+                  <span key={n} className="text-blue-400 text-xs font-bold uppercase bg-blue-900/20 px-1.5 py-0.5 rounded">{n}</span>
+                ))}
+              </div>
+            </div>
+          ) : null;
+        })()}
 
         {persona.skills && persona.skills.length > 0 && (
           <div className={`p-2 rounded ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
@@ -82,11 +96,11 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
             </span>
             <div className="flex gap-1.5 flex-wrap">
               {persona.skills.map(s => (
-                <span key={s} className={`text-xs px-1.5 py-0.5 rounded border ${
+                <span key={s.name} className={`text-xs px-1.5 py-0.5 rounded border ${
                   theme === 'dark' 
                     ? "border-[#1269cc]/30 text-gray-300 bg-[#1269cc]/10" 
                     : "border-gray-200 text-gray-700 bg-white"
-                }`}>{s}</span>
+                }`}>{s.name}</span>
               ))}
             </div>
           </div>
