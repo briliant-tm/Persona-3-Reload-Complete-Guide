@@ -2,12 +2,10 @@
 
 import React, { useState, useMemo } from "react";
 import { Search, Shield, Sparkles } from "lucide-react";
-import { SectionTitle } from "../../components/SectionTitle";
 import { Card } from "../../components/Card";
 import { type Persona } from "../../lib/data/personas";
 import { useTheme } from "../../components/ThemeProvider";
-// Removed: import { usePersonaStore } from "../../lib/store/personaStore";
-import { ErrorBoundary, PersonaSkeleton } from "../../components/ErrorBoundary"; // Removed ApiErrorDisplay
+import { ErrorBoundary } from "../../components/ErrorBoundary"; 
 
 interface FusionClientProps {
     staticPersonas: Persona[];
@@ -18,22 +16,6 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   
-  // Removed API State Management
-  // const { 
-  //   personas: apiPersonas, 
-  //   loading, 
-  //   error, 
-  //   fromAPI,
-  //   fetchPersonas,
-  //   setError
-  // } = usePersonaStore();
-
-  // Removed fetch personas on mount
-  // useEffect(() => {
-  //   fetchPersonas();
-  // }, [fetchPersonas]);
-
-  // Use static PERSONAS as the primary data source
   const personas = staticPersonas;
 
   const filteredPersonas = useMemo(() => 
@@ -119,16 +101,7 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
         {/* SectionTitle is now rendered in the Server Component */}
         
         {/* Removed Error Display */}
-        {/* {error && (
-          <div className="mb-6">
-            <ApiErrorDisplay 
-              error={error} 
-              onRetry={fetchPersonas}
-              showDetails={false}
-            />
-          </div>
-        )} */}
-
+        {/* Removed Loading State */}
         <div className="flex flex-col md:flex-row gap-6 mb-8">
           <div className="relative flex-grow">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -171,10 +144,6 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
           Showing {filteredPersonas.length} of {personas.length} Personas
         </p>
 
-        {/* Removed Loading State */}
-        {/* {loading && filteredPersonas.length === 0 ? (
-          <PersonaSkeleton count={6} />
-        ) : ( */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPersonas.map((persona, idx) => (
               <div key={persona.id}>
@@ -182,7 +151,6 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
               </div>
             ))}
           </div>
-        {/* )} */}
 
         {/* Empty State */}
         {filteredPersonas.length === 0 && (
