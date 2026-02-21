@@ -157,8 +157,33 @@ function ArcanaSelector({
 // ============================================================
 // PERSONA MINI CARD
 // ============================================================
-function PersonaMiniCard({ persona, theme }: { persona: typeof PERSONAS[0]; theme: string }) {
+function PersonaMiniCard({ persona, theme }: { persona: Persona; theme: string }) {
   const [showDetail, setShowDetail] = useState(false);
+
+  // Helper to render resistance types
+  const renderResistance = (type: keyof typeof persona.resistances, label: string, color: string) => {
+    const value = persona.resistances[type];
+    if (value && value !== "None") {
+      return (
+        <span key={type} className={`${color} font-bold uppercase bg-${color.split('-')[0]}-900/20 px-1.5 py-0.5 rounded`}>
+          {value === "Weak" ? "Weak" : value}
+        </span>
+      );
+    }
+    return null;
+  };
+
+  const resistanceTypes = [
+    { type: "fire", label: "Fire", color: "text-red-400" },
+    { type: "ice", label: "Ice", color: "text-blue-400" },
+    { type: "elec", label: "Elec", color: "text-yellow-400" },
+    { type: "wind", label: "Wind", color: "text-green-400" },
+    { type: "light", label: "Light", color: "text-amber-400" },
+    { type: "dark", label: "Dark", color: "text-purple-400" },
+    { type: "slash", label: "Slash", color: "text-gray-400" },
+    { type: "strike", label: "Strike", color: "text-gray-400" },
+    { type: "pierce", label: "Pierce", color: "text-gray-400" },
+  ];
 
   return (
     <div
@@ -178,7 +203,7 @@ function PersonaMiniCard({ persona, theme }: { persona: typeof PERSONAS[0]; them
           </div>
           <div>
             <span className={`font-bold text-sm block ${theme === "dark" ? "text-white" : "text-gray-900"}`}>{persona.name}</span>
-            <span className={`text-xs ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>{persona.type}</span>
+            <span className={`text-xs ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`}>{persona.inherits}</span>
           </div>
         </div>
         <ChevronDown size={14} className={`transition-transform ${showDetail ? "rotate-180" : ""} ${theme === "dark" ? "text-gray-500" : "text-gray-400"}`} />
@@ -196,32 +221,23 @@ function PersonaMiniCard({ persona, theme }: { persona: typeof PERSONAS[0]; them
             <div className="mt-2 pt-2 border-t border-dashed space-y-1.5" style={{
               borderColor: theme === "dark" ? "rgba(18,105,204,0.2)" : "rgba(0,0,0,0.1)"
             }}>
-              {/* Weakness */}
-              <div className="flex items-center gap-2 text-xs">
-                <span className={theme === "dark" ? "text-gray-500" : "text-gray-400"}>Weak:</span>
-                {persona.weak.length > 0 ? persona.weak.map(w => (
-                  <span key={w} className="text-red-400 font-bold uppercase bg-red-900/20 px-1.5 py-0.5 rounded">{w}</span>
-                )) : (
-                  <span className="text-green-400 font-bold uppercase bg-green-900/20 px-1.5 py-0.5 rounded">None</span>
+              {/* Resistances */}
+              <div className="flex items-center gap-2 text-xs flex-wrap">
+                <span className={theme === "dark" ? "text-gray-500" : "text-gray-400"}>Resistances:</span>
+                {resistanceTypes.map(({ type, color }) => renderResistance(type as keyof typeof persona.resistances, type, color))}
+                {Object.values(persona.resistances).every(res => res === "None") && (
+                    <span className="text-green-400 font-bold uppercase bg-green-900/20 px-1.5 py-0.5 rounded">None</span>
                 )}
               </div>
-              {/* Null */}
-              {persona.null && persona.null.length > 0 && (
-                <div className="flex items-center gap-2 text-xs flex-wrap">
-                  <span className={theme === "dark" ? "text-gray-500" : "text-gray-400"}>Null:</span>
-                  {persona.null.map(n => (
-                    <span key={n} className="text-blue-400 font-bold uppercase bg-blue-900/20 px-1.5 py-0.5 rounded">{n}</span>
-                  ))}
-                </div>
-              )}
+              
               {/* Skills */}
               {persona.skills && persona.skills.length > 0 && (
                 <div className="flex items-center gap-1.5 text-xs flex-wrap mt-1">
                   <Sparkles size={10} className={theme === "dark" ? "text-[#51eefc]" : "text-[#1269cc]"} />
                   {persona.skills.map(s => (
-                    <span key={s} className={`px-1.5 py-0.5 rounded border ${
+                    <span key={s.name} className={`px-1.5 py-0.5 rounded border ${
                       theme === "dark" ? "border-[#1269cc]/30 text-gray-300 bg-[#1269cc]/10" : "border-gray-200 text-gray-600 bg-white"
-                    }`}>{s}</span>
+                    }`}>{s.name}</span>
                   ))}
                 </div>
               )}
