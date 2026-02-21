@@ -44,8 +44,18 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Severe Almighty damage to all foes.",
         element: "Almighty",
       },
+      {
+        name: "Armageddon",
+        effect: "Deals 9,999 Almighty damage to all foes. Requires Satan + Helel equipped.",
+        element: "Almighty",
+      },
+      {
+        name: "Infinity",
+        effect: "Makes all party members invincible for 1 turn. Requires Norn equipped.",
+        element: "Support",
+      },
     ],
-    trigger: "Performing actions that match the equipped Persona's strengths (varies by Persona).",
+    trigger: "Performing actions that match the equipped Persona's strengths (varies by Persona). Some Theurgies require specific Personas equipped.",
     strengths: [
       "Only party member who can switch Personas",
       "Can fill any elemental or support gap",
@@ -73,8 +83,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Fully restores party HP and cures all ailments.",
         element: "Recovery",
       },
+      {
+        name: "Winds of Refreshment",
+        effect: "Moderate party HP recovery and removes stat debuffs.",
+        element: "Recovery / Wind",
+      },
     ],
-    trigger: "Using healing skills on allies.",
+    trigger: "Using healing skills on allies. Charges faster with multi-target heals.",
     strengths: [
       "Best dedicated healer in the party",
       "Learns Diarahan and Mediarahan naturally",
@@ -102,8 +117,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Severe Fire damage to all foes.",
         element: "Fire",
       },
+      {
+        name: "Blazing Slash",
+        effect: "Colossal Fire + Slash damage to one foe. Higher crit rate than Hack n' Blast.",
+        element: "Fire / Slash",
+      },
     ],
-    trigger: "Landing Critical Hits.",
+    trigger: "Landing Critical Hits. Charges very fast when using physical skills with high crit rate.",
     strengths: [
       "Highest raw physical damage in the party",
       "Powerful Fire spells for weakness exploitation",
@@ -131,8 +151,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Severe Elec + Strike damage to one foe.",
         element: "Elec / Strike",
       },
+      {
+        name: "Deus Ex Machina",
+        effect: "Severe Elec damage to one foe and applies Charge effect on Akihiko for next physical attack.",
+        element: "Elec / Support",
+      },
     ],
-    trigger: "Applying buffs to the party or debuffs to enemies.",
+    trigger: "Applying buffs to the party or debuffs to enemies. Multi-target buffs charge faster.",
     strengths: [
       "Excellent Elec damage dealer",
       "Natural access to buff skills (Tarukaja, Rakukaja)",
@@ -160,8 +185,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Severe Ice damage to all foes.",
         element: "Ice",
       },
+      {
+        name: "Glacial Blast",
+        effect: "Colossal Ice damage to one foe with high Freeze chance.",
+        element: "Ice",
+      },
     ],
-    trigger: "Inflicting status ailments (Freeze, Charm, etc.) on enemies.",
+    trigger: "Inflicting status ailments (Freeze, Charm, etc.) on enemies. Freezing enemies charges fastest.",
     strengths: [
       "Strongest Ice magic user in the party",
       "Access to instant-kill Mudo skills",
@@ -189,8 +219,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Guarantees escape from any non-boss battle.",
         element: "Support",
       },
+      {
+        name: "Active Support",
+        effect: "Passively restores a small amount of HP and SP to the active party each turn for 3 turns.",
+        element: "Support",
+      },
     ],
-    trigger: "Charges automatically over time during battle.",
+    trigger: "Charges automatically over time during battle. No specific action needed.",
     strengths: [
       "Provides enemy analysis and weakness info",
       "Oracle can turn the tide of tough battles",
@@ -218,8 +253,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Colossal Physical damage to one foe.",
         element: "Physical",
       },
+      {
+        name: "Multi-Mounted",
+        effect: "Severe Pierce damage to all foes — machine gun barrage with high hit count.",
+        element: "Pierce",
+      },
     ],
-    trigger: "Using Physical attack skills.",
+    trigger: "Using Physical attack skills. Multi-hit skills charge gauge faster.",
     strengths: [
       "Extremely high Endurance — great tank",
       "Multi-hit physical skills for critical fishing",
@@ -247,8 +287,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Moderate party heal and raises attack for 3 turns.",
         element: "Recovery / Support",
       },
+      {
+        name: "Heaven's Blade",
+        effect: "Severe Light + Pierce damage to one foe.",
+        element: "Light / Pierce",
+      },
     ],
-    trigger: "Receiving healing or healing others.",
+    trigger: "Receiving healing or healing others. Both giving and receiving heals contribute.",
     strengths: [
       "Only party member with strong Hama (Light) skills",
       "Can serve as backup healer with Mediarama",
@@ -276,8 +321,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Severe Fire damage to all foes with chance to inflict Fear.",
         element: "Fire",
       },
+      {
+        name: "Cerberus Strike",
+        effect: "Colossal Fire + Dark damage to one foe.",
+        element: "Fire / Dark",
+      },
     ],
-    trigger: "Exploiting enemy weaknesses.",
+    trigger: "Exploiting enemy weaknesses. Hitting multiple weaknesses in one turn charges faster.",
     strengths: [
       "Dual Fire/Dark coverage is unique",
       "High Agility — often acts first",
@@ -305,8 +355,13 @@ export const PARTY_MEMBERS: PartyMember[] = [
         effect: "Colossal Physical damage to one foe. High critical rate.",
         element: "Physical",
       },
+      {
+        name: "Retaliating Rage",
+        effect: "Colossal Physical damage to one foe. Damage scales with HP lost in battle.",
+        element: "Physical",
+      },
     ],
-    trigger: "Taking damage from enemies.",
+    trigger: "Taking damage from enemies. More damage taken = faster charge. Synergizes with his high HP pool.",
     strengths: [
       "Highest raw attack stat in the party",
       "Devastating physical damage output",

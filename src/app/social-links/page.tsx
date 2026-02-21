@@ -1,3 +1,44 @@
+/**
+ * ============================================================
+ * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * ============================================================
+ *
+ * This page uses Static Rendering (SSG) via `force-static`.
+ * All 21 Social Links are defined in a static data file
+ * (`lib/data/social-links.ts`) that ships with the build —
+ * there is no runtime API call or database query.
+ *
+ * Configuration:
+ *   export const dynamic = 'force-static'
+ *
+ * Why SSG here?
+ *   The full list of Social Links, their priority tiers, and
+ *   monthly schedule are static game data that will never change
+ *   between user requests. Pre-rendering at build time means:
+ *   - Instant page loads from the CDN edge
+ *   - Zero server cost per request
+ *   - Perfect Lighthouse performance scores
+ *
+ * How it works in Next.js:
+ *   1. At `next build`, Next.js executes this component once.
+ *   2. The rendered HTML (with all 21 Social Link cards) is saved.
+ *   3. Subsequent requests receive the pre-built HTML immediately.
+ *   4. Client-side React hydrates for interactivity (search, tabs).
+ *
+ * Data flow:
+ *   Static import → Build-time resolution → Pre-rendered HTML
+ *
+ * Note: The search/filter/tabs are client-side interactivity.
+ * In Next.js, this component would be split into:
+ *   - page.tsx (Server Component, SSG) — fetches & passes data
+ *   - SocialLinksClient.tsx ('use client') — handles UI state
+ * ============================================================
+ */
+'use client'; // Required: useState, useMemo, AnimatePresence (client-side hooks)
+
+// Next.js Route Segment Config — forces static generation at build time
+export const dynamic = 'force-static';
+
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
@@ -6,6 +47,7 @@ import {
 } from "lucide-react";
 import { SectionTitle } from "../../components/SectionTitle";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";
+import { Link } from "react-router";
 import {
   SOCIAL_LINKS, MONTHLY_GUIDE, PRIORITY_TIERS,
   type SocialLink, type MonthGuide
@@ -204,6 +246,16 @@ function SocialLinkCard({ link, theme, index, showPriority = false }: {
             </AnimatePresence>
           </>
         )}
+
+        {/* View Detail — navigates to ISR-rendered individual page */}
+        <Link
+          to={`/social-links/${link.arcana.toLowerCase().replace(/\s+/g, "-")}`}
+          className={`w-full flex items-center justify-center gap-2 pt-3 border-t text-xs uppercase tracking-wider font-bold transition-colors ${
+            theme === "dark" ? "border-[#1269cc]/20 text-[#51eefc] hover:text-white" : "border-gray-100 text-[#1269cc] hover:text-[#0f5ab5]"
+          }`}
+        >
+          View Full Detail <ArrowRight size={12} />
+        </Link>
       </div>
     </motion.div>
   );

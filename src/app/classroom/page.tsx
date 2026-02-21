@@ -1,3 +1,27 @@
+/**
+ * ============================================================
+ * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * ============================================================
+ *
+ * This page uses Static Rendering (SSG) via `force-static`.
+ * Classroom questions and exam answers are fixed game data from
+ * `lib/data/classroom.ts` — they ship with the build.
+ *
+ * Configuration:
+ *   export const dynamic = 'force-static'
+ *
+ * Why SSG here?
+ *   Every question/answer pair in P3R is deterministic and
+ *   unchanging. The tab switcher between Daily Questions and
+ *   Midterms/Finals is purely client-side state. Pre-rendering
+ *   at build time is optimal for this reference content.
+ * ============================================================
+ */
+'use client'; // Required: useState for tab switching
+
+// Next.js Route Segment Config — forces static generation at build time
+export const dynamic = 'force-static';
+
 import React, { useState } from "react";
 import { SectionTitle } from "../../components/SectionTitle";
 import { ImageWithFallback } from "../../components/figma/ImageWithFallback";

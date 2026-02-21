@@ -1,3 +1,30 @@
+/**
+ * ============================================================
+ * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * ============================================================
+ *
+ * This page uses Static Rendering (SSG) via `force-static`.
+ * The combat mechanics (elements, Theurgy, Shift, All-Out Attack)
+ * are fixed game data that never changes at runtime.
+ *
+ * Configuration:
+ *   export const dynamic = 'force-static'
+ *
+ * Why SSG here?
+ *   All combat data (9 element types, party member Theurgies,
+ *   shift/all-out mechanics) is statically imported from
+ *   `lib/data/combat.ts` and `lib/data/party.ts`. Since game
+ *   mechanics don't change between deploys, SSG is optimal:
+ *   - Pre-rendered once at build time
+ *   - Served instantly from CDN edge
+ *   - Zero runtime server cost
+ * ============================================================
+ */
+'use client'; // Required: useState, AnimatePresence (client-side hooks)
+
+// Next.js Route Segment Config — forces static generation at build time
+export const dynamic = 'force-static';
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Sword, Zap, Shield, Sparkles, ChevronDown, ChevronUp, Users } from "lucide-react";

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { motion, AnimatePresence } from "motion/react";
-import { Moon, Ghost, Sword, Map, BookOpen, GraduationCap, Heart, Menu, X, Sun } from "lucide-react";
+import { Moon, Ghost, Sword, Map, BookOpen, GraduationCap, Heart, Menu, X, Sun, Crown, Calculator } from "lucide-react";
 import logoImg from "figma:asset/1906305b5d234fcf82e6d60ae0d0632407c8e048.png";
 import { useTheme } from "./ThemeProvider";
 
@@ -13,11 +13,13 @@ export const Navigation = () => {
   const navItems = [
     { id: "home", path: "/", label: "Home", icon: <Moon size={20} /> },
     { id: "fusion", path: "/fusion", label: "Fusion", icon: <Ghost size={20} /> },
+    { id: "calculator", path: "/calculator", label: "Calculator", icon: <Calculator size={20} /> },
     { id: "combat", path: "/combat", label: "Combat", icon: <Sword size={20} /> },
     { id: "floors", path: "/floors", label: "Tartarus", icon: <Map size={20} /> },
     { id: "story", path: "/story", label: "Story", icon: <BookOpen size={20} /> },
     { id: "classroom", path: "/classroom", label: "Classroom", icon: <GraduationCap size={20} /> },
-    { id: "social-links", path: "/social-links", label: "Social Links", icon: <Heart size={20} /> },
+    { id: "social-links", path: "/social-links", label: "S.Links", icon: <Heart size={20} /> },
+    { id: "elizabeth", path: "/elizabeth", label: "Elizabeth", icon: <Crown size={20} /> },
   ];
 
   const getActiveTab = (pathname: string) => {
@@ -45,19 +47,19 @@ export const Navigation = () => {
             </span>
           </Link>
           
-          <div className="hidden md:flex items-center gap-4">
-            <div className="ml-10 flex items-baseline space-x-4">
+          <div className="hidden lg:flex items-center gap-2">
+            <div className="ml-6 flex items-baseline space-x-1">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
                   to={item.path}
-                  className={`relative px-3 py-2 rounded-md text-sm font-medium transition-all duration-300 flex items-center gap-2 group overflow-hidden ${
+                  className={`relative px-2.5 py-2 rounded-md text-xs font-medium transition-all duration-300 flex items-center gap-1.5 group overflow-hidden ${
                     activeTab === item.id 
                       ? (theme === 'dark' ? "text-[#51eefc] bg-[#1269cc]/20" : "text-[#1269cc] bg-blue-50")
                       : (theme === 'dark' ? "text-gray-300 hover:text-white hover:bg-[#1269cc]/10" : "text-gray-600 hover:text-[#0a1929] hover:bg-gray-100")
                   }`}
                 >
-                  {item.icon}
+                  <span className="hidden xl:inline-block">{item.icon}</span>
                   {item.label}
                   {activeTab === item.id && (
                     <motion.div
@@ -79,7 +81,7 @@ export const Navigation = () => {
             </button>
           </div>
 
-          <div className="md:hidden flex items-center gap-4">
+          <div className="lg:hidden flex items-center gap-4">
             <button
               onClick={toggleTheme}
               className={`p-2 rounded-full transition-colors ${
@@ -107,7 +109,7 @@ export const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className={`md:hidden border-b ${
+            className={`lg:hidden border-b ${
               theme === 'dark' ? "bg-[#0f2438] border-[#1269cc]/30" : "bg-white border-gray-200"
             }`}
           >

@@ -1,3 +1,27 @@
+/**
+ * ============================================================
+ * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * ============================================================
+ *
+ * This page uses Static Rendering (SSG) via `force-static`.
+ * All 6 Tartarus blocks (Thebel through Adamah) with their
+ * floor ranges, threats, and Personas are static game data.
+ *
+ * Configuration:
+ *   export const dynamic = 'force-static'
+ *
+ * Why SSG here?
+ *   Tartarus floor data is fixed reference content — floor
+ *   numbers, enemy weaknesses, and recruitable Personas are
+ *   immutable. Heavy image content benefits from CDN caching
+ *   that SSG provides. No server computation needed.
+ * ============================================================
+ */
+'use client'; // Required: Motion animations (whileInView)
+
+// Next.js Route Segment Config — forces static generation at build time
+export const dynamic = 'force-static';
+
 import React from "react";
 import { motion } from "motion/react";
 import { Sword } from "lucide-react";

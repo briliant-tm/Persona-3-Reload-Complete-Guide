@@ -1,3 +1,29 @@
+/**
+ * ============================================================
+ * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * ============================================================
+ *
+ * This page uses Static Rendering (SSG) via `force-static`.
+ * The Persona compendium (65 entries across 18 arcanas) is
+ * statically imported from `lib/data/personas.ts`.
+ *
+ * Configuration:
+ *   export const dynamic = 'force-static'
+ *
+ * Why SSG here?
+ *   The Persona database is fixed game content — every entry
+ *   (name, level, affinities, skills) is immutable between
+ *   deployments. Pre-rendering at build time:
+ *   - Generates the full grid of Persona cards as static HTML
+ *   - Client-side JS hydrates for search/filter interactivity
+ *   - No server round-trip needed at request time
+ * ============================================================
+ */
+'use client'; // Required: useState, useMemo (client-side hooks for search/filter)
+
+// Next.js Route Segment Config — forces static generation at build time
+export const dynamic = 'force-static';
+
 import React, { useState, useMemo } from "react";
 import { Search, Shield, Sparkles } from "lucide-react";
 import { SectionTitle } from "../../components/SectionTitle";

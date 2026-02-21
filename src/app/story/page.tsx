@@ -1,3 +1,26 @@
+/**
+ * ============================================================
+ * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * ============================================================
+ *
+ * This page uses Static Rendering (SSG) via `force-static`.
+ * The 15 story events are defined in `lib/data/story.ts` and
+ * never change — pure static walkthrough content.
+ *
+ * Configuration:
+ *   export const dynamic = 'force-static'
+ *
+ * Why SSG here?
+ *   Story walkthrough data (dates, titles, descriptions) is
+ *   immutable game content. The spoiler toggle is client-side
+ *   UI state that doesn't require server interaction.
+ * ============================================================
+ */
+'use client'; // Required: useState for spoiler toggle
+
+// Next.js Route Segment Config — forces static generation at build time
+export const dynamic = 'force-static';
+
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { SectionTitle } from "../../components/SectionTitle";
