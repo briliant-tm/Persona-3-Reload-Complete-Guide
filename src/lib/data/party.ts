@@ -75,27 +75,22 @@ export const PARTY_MEMBERS: PartyMember[] = [
     theurgies: [
       {
         name: "Cyclone Arrow",
-        effect: "Severe Wind damage to all foes.",
+        effect: "Deals severe Wind damage to an enemy while ignoring their resistances.",
         element: "Wind",
       },
       {
         name: "Tranquility",
-        effect: "Fully restores party HP and cures all ailments.",
-        element: "Recovery",
-      },
-      {
-        name: "Winds of Refreshment",
-        effect: "Moderate party HP recovery and removes stat debuffs.",
-        element: "Recovery / Wind",
+        effect: "Places a buff that ensures the next magic attack used by any party member will deal more than double damage.",
+        element: "Support",
       },
     ],
-    trigger: "Using healing skills on allies. Charges faster with multi-target heals.",
+    trigger: "Gauge increases after using a healing skill.",
     strengths: [
       "Best dedicated healer in the party",
       "Learns Diarahan and Mediarahan naturally",
       "Strong Wind magic as a secondary role",
     ],
-    tips: "Keep Yukari healing — it charges her Theurgy. Save Tranquility for emergencies since it's a full party heal + ailment cure.",
+    tips: "Keep Yukari healing — it charges her Theurgy. Use Tranquility to boost party magic damage.",
     color: "text-pink-400",
   },
   {
@@ -108,28 +103,23 @@ export const PARTY_MEMBERS: PartyMember[] = [
     primaryElement: "Fire",
     theurgies: [
       {
-        name: "Hack n' Blast",
-        effect: "Severe Fire + Slash damage to one foe.",
-        element: "Fire / Slash",
+        name: "Hack n’ Blast",
+        effect: "Deals severe Slash damage to an enemy while ignoring their resistances.",
+        element: "Slash",
       },
       {
-        name: "Firestorm Blast",
-        effect: "Severe Fire damage to all foes.",
+        name: "Blaze of Life",
+        effect: "Deals massive Fire damage to an enemy while ignoring their resistances. Fully heals the user.",
         element: "Fire",
       },
-      {
-        name: "Blazing Slash",
-        effect: "Colossal Fire + Slash damage to one foe. Higher crit rate than Hack n' Blast.",
-        element: "Fire / Slash",
-      },
     ],
-    trigger: "Landing Critical Hits. Charges very fast when using physical skills with high crit rate.",
+    trigger: "Gauge increases after landing a critical hit.",
     strengths: [
       "Highest raw physical damage in the party",
       "Powerful Fire spells for weakness exploitation",
       "Critical hit rate boosts Theurgy quickly",
     ],
-    tips: "Pair Junpei with Critical-boosting accessories. His Theurgy charges fast when he crits, making him a DPS machine in longer fights.",
+    tips: "Pair Junpei with Critical-boosting accessories. Blaze of Life is both offense and sustain.",
     color: "text-blue-400",
   },
   {
@@ -143,27 +133,22 @@ export const PARTY_MEMBERS: PartyMember[] = [
     theurgies: [
       {
         name: "Lightning Spike",
-        effect: "Severe Elec damage to all foes.",
+        effect: "Deals heavy Electric damage to all enemies while ignoring their resistances.",
         element: "Elec",
       },
       {
-        name: "Thunderfist",
-        effect: "Severe Elec + Strike damage to one foe.",
-        element: "Elec / Strike",
-      },
-      {
-        name: "Deus Ex Machina",
-        effect: "Severe Elec damage to one foe and applies Charge effect on Akihiko for next physical attack.",
-        element: "Elec / Support",
+        name: "Electric Onslaught",
+        effect: "Deals severe Electric damage to an enemy while ignoring their resistances. High chance of Shock.",
+        element: "Elec",
       },
     ],
-    trigger: "Applying buffs to the party or debuffs to enemies. Multi-target buffs charge faster.",
+    trigger: "Gauge increases after using a buff skill on himself.",
     strengths: [
       "Excellent Elec damage dealer",
       "Natural access to buff skills (Tarukaja, Rakukaja)",
       "Good physical attack with Strike typing",
     ],
-    tips: "Have Akihiko buff the party at the start of boss fights — it charges his Theurgy while boosting everyone's stats. Then unleash Lightning Spike.",
+    tips: "Buff Akihiko early to charge Theurgy. Electric Onslaught is great for single-target burst.",
     color: "text-yellow-300",
   },
   {
@@ -177,27 +162,22 @@ export const PARTY_MEMBERS: PartyMember[] = [
     theurgies: [
       {
         name: "Blizzard Edge",
-        effect: "Severe Ice + Slash damage to one foe.",
-        element: "Ice / Slash",
-      },
-      {
-        name: "Cocytus",
-        effect: "Severe Ice damage to all foes.",
+        effect: "Deals severe Ice damage to an enemy while ignoring their resistances.",
         element: "Ice",
       },
       {
-        name: "Glacial Blast",
-        effect: "Colossal Ice damage to one foe with high Freeze chance.",
-        element: "Ice",
+        name: "Blade of Execution",
+        effect: "Deals massive Almighty damage to an enemy while decreasing their stats.",
+        element: "Almighty",
       },
     ],
-    trigger: "Inflicting status ailments (Freeze, Charm, etc.) on enemies. Freezing enemies charges fastest.",
+    trigger: "Gauge increases after debuffing enemies or inflicting them with a status ailment.",
     strengths: [
       "Strongest Ice magic user in the party",
       "Access to instant-kill Mudo skills",
       "High Magic stat makes her spells devastating",
     ],
-    tips: "Mitsuru's Theurgy charges when she freezes enemies with Bufu skills — a natural combo. Her single-target Ice damage is unmatched.",
+    tips: "Debuff or inflict ailments to charge Theurgy. Blade of Execution is a powerful finisher.",
     color: "text-red-400",
   },
   {
@@ -211,27 +191,22 @@ export const PARTY_MEMBERS: PartyMember[] = [
     theurgies: [
       {
         name: "Oracle",
-        effect: "Random powerful support effect (full heal, buffs, debuffs, etc.).",
+        effect: "Places a random buff on all party members.",
         element: "Support",
       },
       {
-        name: "Escape Route",
-        effect: "Guarantees escape from any non-boss battle.",
-        element: "Support",
-      },
-      {
-        name: "Active Support",
-        effect: "Passively restores a small amount of HP and SP to the active party each turn for 3 turns.",
+        name: "Revelation",
+        effect: "Places a random enhanced effect on all party members.",
         element: "Support",
       },
     ],
-    trigger: "Charges automatically over time during battle. No specific action needed.",
+    trigger: "Gauge increases after analyzing an enemy.",
     strengths: [
       "Provides enemy analysis and weakness info",
       "Oracle can turn the tide of tough battles",
       "No SP cost — effects are free",
     ],
-    tips: "Oracle is RNG-based but always helpful. In longer Tartarus runs, Fuuka's passive support saves significant SP for the whole party.",
+    tips: "Analyze enemies to charge Theurgy. Revelation grants powerful team buffs.",
     color: "text-teal-400",
   },
   {
@@ -244,28 +219,23 @@ export const PARTY_MEMBERS: PartyMember[] = [
     primaryElement: "Physical",
     theurgies: [
       {
-        name: "Heritage Liberator",
-        effect: "Severe Physical damage to all foes (multiple hits).",
-        element: "Physical",
+        name: "Orgia Mode",
+        effect: "Deals heavy Pierce damage to all enemies while ignoring their resistances. Aigis cannot be controlled for the next few turns.",
+        element: "Pierce",
       },
       {
-        name: "Pandemonium",
-        effect: "Colossal Physical damage to one foe.",
-        element: "Physical",
-      },
-      {
-        name: "Multi-Mounted",
-        effect: "Severe Pierce damage to all foes — machine gun barrage with high hit count.",
+        name: "Maximum Firepower",
+        effect: "Deals severe Pierce damage to an enemy while ignoring their resistances.",
         element: "Pierce",
       },
     ],
-    trigger: "Using Physical attack skills. Multi-hit skills charge gauge faster.",
+    trigger: "Gauge increases after using a Physical skill.",
     strengths: [
       "Extremely high Endurance — great tank",
       "Multi-hit physical skills for critical fishing",
       "No elemental weakness in evolved form",
     ],
-    tips: "Aigis is your physical powerhouse. Her multi-hit attacks have high crit rates, and her Theurgy charges from using them. Perfect synergy.",
+    tips: "Use Orgia Mode for AoE, Maximum Firepower for single-target burst.",
     color: "text-sky-300",
   },
   {
@@ -279,27 +249,22 @@ export const PARTY_MEMBERS: PartyMember[] = [
     theurgies: [
       {
         name: "Divine Retribution",
-        effect: "Severe Light damage to all foes.",
+        effect: "Deals severe Light damage to an enemy while ignoring their resistances.",
         element: "Light",
       },
       {
-        name: "Seraphic Radiance",
-        effect: "Moderate party heal and raises attack for 3 turns.",
-        element: "Recovery / Support",
-      },
-      {
-        name: "Heaven's Blade",
-        effect: "Severe Light + Pierce damage to one foe.",
-        element: "Light / Pierce",
+        name: "Divine Intervention",
+        effect: "Revives all party members and fully heals them. The next attack used against any teammate will be reflected.",
+        element: "Support",
       },
     ],
-    trigger: "Receiving healing or healing others. Both giving and receiving heals contribute.",
+    trigger: "Gauge increases after his SP drops below half.",
     strengths: [
       "Only party member with strong Hama (Light) skills",
       "Can serve as backup healer with Mediarama",
       "Light instant-kill is useful in Tartarus farming",
     ],
-    tips: "Ken is great for Tartarus grinding — Hama skills instantly kill Dark-weak Shadows for fast clears. His backup healing also extends long runs.",
+    tips: "Use Divine Intervention for emergency team revival and protection.",
     color: "text-amber-300",
   },
   {
@@ -312,28 +277,23 @@ export const PARTY_MEMBERS: PartyMember[] = [
     primaryElement: "Fire / Dark",
     theurgies: [
       {
-        name: "Hound of Darkness",
-        effect: "Severe Dark damage to all foes.",
+        name: "Hound of Hades",
+        effect: "Deals severe Dark damage to an enemy while ignoring their resistances.",
         element: "Dark",
       },
       {
-        name: "Infernal Howl",
-        effect: "Severe Fire damage to all foes with chance to inflict Fear.",
-        element: "Fire",
-      },
-      {
-        name: "Cerberus Strike",
-        effect: "Colossal Fire + Dark damage to one foe.",
-        element: "Fire / Dark",
+        name: "Power Howling",
+        effect: "Places a buff that ensures the next physical attack used by any party member will deal double damage.",
+        element: "Support",
       },
     ],
-    trigger: "Exploiting enemy weaknesses. Hitting multiple weaknesses in one turn charges faster.",
+    trigger: "Gauge increases after exploiting an enemy’s weakness.",
     strengths: [
       "Dual Fire/Dark coverage is unique",
       "High Agility — often acts first",
       "Mudo skills useful for instant-kill farming",
     ],
-    tips: "Koromaru's dual element coverage makes him versatile. He charges Theurgy by hitting weaknesses, so keep him targeting vulnerable enemies.",
+    tips: "Target weaknesses to charge Theurgy. Power Howling is a great team buff.",
     color: "text-gray-300",
   },
   {
@@ -347,27 +307,17 @@ export const PARTY_MEMBERS: PartyMember[] = [
     theurgies: [
       {
         name: "Bleeding Fury",
-        effect: "Colossal Physical damage to all foes.",
-        element: "Physical",
-      },
-      {
-        name: "Fatal End Rush",
-        effect: "Colossal Physical damage to one foe. High critical rate.",
-        element: "Physical",
-      },
-      {
-        name: "Retaliating Rage",
-        effect: "Colossal Physical damage to one foe. Damage scales with HP lost in battle.",
-        element: "Physical",
-      },
+        effect: "Deals severe Strike damage to an enemy while ignoring their resistances.",
+        element: "Strike",
+      }
     ],
-    trigger: "Taking damage from enemies. More damage taken = faster charge. Synergizes with his high HP pool.",
+    trigger: "Gauge increases after his HP drops below half.",
     strengths: [
       "Highest raw attack stat in the party",
       "Devastating physical damage output",
       "Access to powerful Dark (Mudo) skills",
     ],
-    tips: "Shinjiro is a glass cannon who charges Theurgy by getting hit. Keep a healer ready and let him absorb hits — then unleash Bleeding Fury for massive damage. He's only available for a limited time.",
+    tips: "Let Shinjiro's HP drop to charge Theurgy. Bleeding Fury is a powerful finisher.",
     color: "text-gray-400",
   },
 ];
