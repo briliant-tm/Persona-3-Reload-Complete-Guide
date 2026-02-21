@@ -52,7 +52,7 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Plus, ArrowRight, Search, Shuffle, RotateCcw, Sparkles, Target,
-  ChevronDown, ChevronUp, Shield, Zap, Info
+  ChevronDown, ChevronUp, Shield, Zap, Info, Wand2
 } from "lucide-react";
 import { SectionTitle } from "../../components/SectionTitle";
 import { Card } from "../../components/Card";
@@ -288,6 +288,7 @@ export default function CalculatorPage() {
   const tabs = [
     { id: "calculator" as const, label: "Fusion Calculator", icon: <Zap size={16} /> },
     { id: "reverse" as const, label: "Reverse Lookup", icon: <Target size={16} /> },
+    { id: "mc-theurgy" as const, label: "MC Theurgy Guide", icon: <Wand2 size={16} /> },
   ];
 
   return (
@@ -555,7 +556,82 @@ export default function CalculatorPage() {
             )}
           </motion.div>
         )}
-      </AnimatePresence>
+        {/* ==================== MC THEURGY GUIDE ==================== */}
+        {activeTab === "mc-theurgy" && (
+          <motion.div
+            key="mc-theurgy"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.25 }}
+            className="space-y-8"
+          >
+            <Card className="!p-6 rounded-lg">
+              <div className="flex items-start gap-3 mb-6">
+                <Info size={20} className={theme === "dark" ? "text-[#51eefc]" : "text-[#1269cc]"} />
+                <div>
+                  <h3 className={`font-bold text-lg ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                    Protagonist Theurgy Unlock Guide
+                  </h3>
+                  <p className={`text-sm mt-1 ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>
+                    To unlock each Theurgy skill for the protagonist, fuse and equip the required Persona pair in your party.
+                  </p>
+                </div>
+              </div>
+
+              {/* Theurgy Table */}
+              <div className={`overflow-x-auto rounded-lg border ${theme === "dark" ? "border-[#1269cc]/30 bg-[#0f2438]" : "border-gray-200 bg-white"}`}>
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className={theme === "dark" ? "bg-[#1269cc]/15 border-b border-[#1269cc]/30" : "bg-blue-50 border-b border-gray-200"}>
+                      <th className={`px-4 py-3 text-left font-bold ${theme === "dark" ? "text-[#51eefc]" : "text-[#1269cc]"}`}>Theurgy Skill</th>
+                      <th className={`px-4 py-3 text-left font-bold ${theme === "dark" ? "text-[#51eefc]" : "text-[#1269cc]"}`}>Required Personas</th>
+                      <th className={`px-4 py-3 text-left font-bold ${theme === "dark" ? "text-[#51eefc]" : "text-[#1269cc]"}`}>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { skill: "Cadenza", personas: "Orpheus + Apsaras", desc: "Restores 50% HP to all allies, increases accuracy and evasion." },
+                      { skill: "Jack Brothers", personas: "Jack Frost + Pyro Jack", desc: "Medium Almighty damage to all enemies, high chance to inflict Down." },
+                      { skill: "King and I", personas: "Black Frost + King Frost", desc: "Heavy Ice damage to all enemies, medium chance to inflict Freeze." },
+                      { skill: "Best Friends", personas: "Forneus + Decarabia", desc: "Buff: Next physical/magical attack by one ally deals double damage." },
+                      { skill: "Scarlet Havoc", personas: "Siegfried + Mithras", desc: "Severe Slash damage to all enemies, ignores all resistances." },
+                      { skill: "Trickster", personas: "Susano-o + Loki", desc: "Massive Almighty damage to all enemies, chance random ailment." },
+                      { skill: "Armageddon", personas: "Helel + Satan", desc: "Ultimate Almighty damage to all enemies, reduces MC's HP/SP to 1." },
+                    ].map((row, idx) => (
+                      <tr key={idx} className={idx % 2 === 0 ? (theme === "dark" ? "bg-[#0a1929]/50" : "bg-gray-50") : ""}>
+                        <td className={`px-4 py-3 font-bold whitespace-nowrap ${theme === "dark" ? "text-[#51eefc]" : "text-[#1269cc]"}`}>{row.skill}</td>
+                        <td className={`px-4 py-3 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>{row.personas}</td>
+                        <td className={`px-4 py-3 ${theme === "dark" ? "text-gray-400" : "text-gray-600"}`}>{row.desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Card>
+
+            {/* Instructions Card */}
+            <Card className="!p-6 rounded-lg">
+              <h3 className={`font-bold text-lg mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                How to Unlock
+              </h3>
+              <ol className={`space-y-3 ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+                <li className="flex gap-3">
+                  <span className={`font-bold px-2.5 py-0.5 rounded text-sm ${theme === "dark" ? "bg-[#1269cc]/20 text-[#51eefc]" : "bg-blue-50 text-[#1269cc]"}`}>1</span>
+                  <span>Fuse the required Persona pair in the Velvet Room.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className={`font-bold px-2.5 py-0.5 rounded text-sm ${theme === "dark" ? "bg-[#1269cc]/20 text-[#51eefc]" : "bg-blue-50 text-[#1269cc]"}`}>2</span>
+                  <span>Equip <strong>both</strong> Personas in your party.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className={`font-bold px-2.5 py-0.5 rounded text-sm ${theme === "dark" ? "bg-[#1269cc]/20 text-[#51eefc]" : "bg-blue-50 text-[#1269cc]"}`}>3</span>
+                  <span>The Theurgy skill will appear in battle when requirements are met.</span>
+                </li>
+              </ol>
+            </Card>
+          </motion.div>
+        )}      </AnimatePresence>
     </div>
   );
 }
