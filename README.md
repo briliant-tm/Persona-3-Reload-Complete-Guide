@@ -8,6 +8,30 @@ Originally created as a guide for Persona 3 Reload—now available as an open-so
 
 ---
 
+## ⚖️ IMPORTANT — License & Deployment Policy
+
+**This repository is provided AS-IS for educational and personal use only.**
+
+### ❌ You CANNOT
+- Deploy and publicly host this entire codebase or modified versions without explicit written permission
+- Claim ownership of the original design, architecture, or game content
+- Redistribute or resell any part of this project
+- Use this for commercial purposes without approval
+
+### ✅ You CAN
+- Fork and use this as a **template** for your own original projects
+- Use the code patterns and architecture for learning
+- Create your own custom game guides using this structure
+- Modify the code for personal/educational purposes
+
+### 🔗 Official Live Site
+The **official, maintained website** is available at:
+- **Production URL:** [https://lzcorporation-p3r.vercel.app](https://lzcorporation-p3r.vercel.app)
+
+This is the authoritative source for the Persona 3 Reload game guide.
+
+---
+
 ## 🚀 What's Included
 
 ### ✨ Core Features
@@ -307,33 +331,42 @@ Use this template to create guides for:
 
 ---
 
-## 📄 License
+## 📄 License & Terms
 
-MIT License - Feel free to use, modify, and distribute this template for your own projects.
+**Copyright © 2026 LZ Corporation Ltd. All Rights Reserved.**
+
+This project is **NOT** open source for deployment. Unauthorized public deployment, hosting, or redistribution of this codebase is strictly prohibited.
+
+### Permitted Uses
+- Learning and education
+- Personal projects using this as a template
+- Creating your own original game guides
+- Code review and analysis
+
+### Prohibited Uses
+- ❌ Deploying this repo to any public hosting without permission
+- ❌ Hosting competing versions of this site
+- ❌ Claiming ownership of the original work
+- ❌ Commercial use without explicit licensing agreement
+- ❌ Redistributing or including in other products
+
+**Violations will result in legal action.**
+
+### For Developers
+If you want to create your own game guide using this architecture:
+1. Start fresh with your own data
+2. Modify the branding and styling
+3. Create original content
+4. Deploy confidently—your own projects are yours
 
 ---
 
-## 🤝 Contributing
+## 🎮 Game Content Attribution
 
-Contributions are welcome! Please:
+Game content, mechanics, artwork, and data are properties of **Atlus and SEGA**.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Persona 3 Reload is © Atlus. All Rights Reserved. This guide is for educational and fan use only.
 
 ---
 
-## 💡 Tips for Your Project
-
-1. **Start Simple**: Copy the data structure, modify static data first
-2. **Test Locally**: Use `npm run dev` to preview changes instantly
-3. **Use TypeScript**: Leverage types for safer code
-4. **Leverage Components**: Reuse Radix UI components from `src/components/ui/`
-5. **SEO**: Update page titles and meta tags in `layout.tsx`
-6. **Performance**: Use lazy loading for large lists
-
----
-
-**Made with ❤️ — Ready for your next project**
+**Made with ❤️ — Protect your projects**
