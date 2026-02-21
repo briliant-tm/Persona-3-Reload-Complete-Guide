@@ -2,7 +2,7 @@
 
 > **Simplifying connectivity. Secure. Scalable. Modern.**
 
-A production-ready, interactive web template for building modern game guides. Built with React, Vite, TypeScript, and Tailwind CSS. Includes API integration, state management, performance optimization, and comprehensive documentation.
+A production-ready, interactive web template for building modern game guides. Built with **Next.js App Router**, React, TypeScript, and Tailwind CSS. Features advanced rendering techniques (SSR, SSG, CSR), API integration, state management, performance optimization, and comprehensive documentation.
 
 Originally created as a guide for Persona 3 Reload—now available as an open-source foundation for your own game guide website.
 
@@ -37,9 +37,9 @@ This is the authoritative source for the Persona 3 Reload game guide.
 ### ✨ Core Features
 - 📖 **9 Pre-built Pages**: Story, Combat, Classroom, Social Links, Tartarus, Fusion, Elizabeth Quests, Calculator, and more
 - 🎨 **Modern UI**: Dark/light mode with smooth animations, responsive design, Radix UI components
-- ⚡ **High Performance**: Vite + React SWC, edge-cached static pages, lazy loading, memoization
+- ⚡ **High Performance**: Next.js App Router, advanced caching, lazy loading, memoization, optimized rendering techniques (SSR, SSG, CSR)
 - 🔍 **Search & Filter**: Built-in persona search, type filtering, arcana categorization
-- 🛡️ **Client-Side Only**: No login, no tracking, no ads—fully static and privacy-focused
+- 🛡️ **Flexible Rendering**: Strategically uses SSR, SSG, and CSR for optimal performance and SEO
 
 ### 🔧 Advanced Architecture
 - **API Integration**: Complete dummyjson.com integration with fallback to static data
@@ -47,10 +47,31 @@ This is the authoritative source for the Persona 3 Reload game guide.
 - **Error Handling**: Error boundaries, graceful degradation, retry logic
 - **Performance**: Memoization utilities, debounce/throttle, intersection observer lazy loading
 - **Type Safety**: Full TypeScript with proper interfaces for all data structures
+- **Next.js App Router**: Leverages React Server Components and Client Components for efficient rendering.
 
 ---
 
 ## 🏗️ Architecture Overview
+
+### Next.js App Router - Rendering Strategies
+
+This project strategically uses Next.js App Router's rendering capabilities:
+
+-   **Static Site Generation (SSG)**: Pages with static content are pre-rendered at build time for maximum performance and SEO.
+    -   `/floors`
+    -   `/social-links` (list page)
+    -   `/social-links/detail/[arcana]` (dynamic routes, pre-rendered)
+    -   `/classroom`
+    -   `/story`
+-   **Server-Side Rendering (SSR)**: Pages requiring fresh data on each request are rendered on the server.
+    -   `/elizabeth` (currently static data, but structured for dynamic SSR)
+    -   `/fusion` (initial data fetch)
+-   **Client-Side Rendering (CSR)**: Highly interactive pages or components are rendered and managed client-side.
+    -   `/calculator`
+    -   `/combat`
+    -   Interactive parts within SSR/SSG pages (extracted into Client Components like `FloorsClient`, `SocialLinksClient`, etc.)
+
+---
 
 ### 1. **API Service Layer** (`src/lib/services/api.ts`)
 Handles external data fetching with automatic retry logic and error recovery:
@@ -81,8 +102,8 @@ Optimization helpers for expensive operations:
 
 ### 5. **Components**
 - **LazyPersonaCard** (`src/components/LazyPersonaCard.tsx`): Intersection Observer-based lazy loading
-- **ErrorBoundary** (`src/components/ErrorBoundary.tsx`): Error handling with fallback UI
-- **ThemeProvider** (`src/components/ThemeProvider.tsx`): Dark/light mode support
+- **ErrorBoundary** (`src/components/ErrorBoundary.tsx`): Error handling + UI
+- **ThemeProvider** (`src/components/ThemeProvider.tsx`): Dark/light mode support (Client Component)
 
 ### 6. **Custom Hooks** (`src/lib/hooks/useHybridPersonaData.ts`)
 Simplified API integration with automatic fallback:
@@ -96,77 +117,100 @@ const { personas, loading, error, fromAPI, fetchPersonas } = useHybridPersonaDat
 
 ```
 src/
-├── app/                          # Pages (static + interactive)
-│   ├── layout.tsx               # Root layout with theme
-│   ├── page.tsx                 # Homepage
-│   ├── calculator/              # Calculator page (fusion, Theurgy)
-│   ├── combat/                  # Combat mechanics & Theurgy
-│   ├── classroom/               # Q&A education system
-│   ├── elizabeth/               # Elizabeth quest requests
-│   ├── floors/                  # Tartarus floor progression
-│   ├── fusion/                  # Persona fusion guide (API INTEGRATED)
-│   ├── social-links/            # 21 social link guides
-│   │   └── detail/              # Dynamic social link routes
-│   ├── story/                   # 15 story milestones
-│   └── routes.tsx               # React Router configuration
+├── app/                                    # Next.js App Router pages
+│   ├── layout.tsx                          # Root layout (Client Component wrapper for ThemeProvider)
+│   ├── page.tsx                            # Homepage (Client Component)
+│   ├── calculator/                         # Calculator page (Client Component)
+│   │   └── page.tsx
+│   ├── combat/                             # Combat mechanics & Theurgy (Client Component)
+│   │   └── page.tsx
+│   ├── classroom/                          # Q&A education system (Server Component, SSG)
+│   │   ├── page.tsx
+│   │   └── ClassroomClient.tsx             # Client Component for interactivity
+│   ├── elizabeth/                          # Elizabeth quest requests (Server Component, SSR-ready)
+│   │   ├── page.tsx
+│   │   └── ElizabethClient.tsx             # Client Component for interactivity
+│   ├── floors/                             # Tartarus floor progression (Server Component, SSG)
+│   │   ├── page.tsx
+│   │   └── FloorsClient.tsx                # Client Component for interactivity
+│   ├── fusion/                             # Persona fusion guide (Server Component, Hybrid SSG/CSR)
+│   │   ├── page.tsx
+│   │   └── FusionClient.tsx                # Client Component for interactivity & API fetches
+│   ├── social-links/                       # 21 social link guides (Server Component, SSG)
+│   │   ├── page.tsx
+│   │   ├── SocialLinksClient.tsx           # Client Component for interactivity
+│   │   └── detail/                         # Dynamic social link routes (Server Component, SSG with generateStaticParams)
+│   │       ├── [arcana]/
+│   │       │   ├── page.tsx
+│   │       │   └── SocialLinkDetailClient.tsx # Client Component for interactivity
+│   ├── story/                              # 15 story milestones (Server Component, SSG)
+│   │   ├── page.tsx
+│   │   └── StoryClient.tsx                 # Client Component for interactivity
 │
-├── components/                  # Reusable React components
-│   ├── Card.tsx                 # Content card with animation
-│   ├── ErrorBoundary.tsx        # Error handling + UI
-│   ├── Footer.tsx               # Footer with links
-│   ├── Hero.tsx                 # Hero section
-│   ├── Navigation.tsx           # Header navigation
-│   ├── LazyPersonaCard.tsx      # Lazy loading wrapper
-│   ├── ThemeProvider.tsx        # Dark/light mode
-│   ├── SectionTitle.tsx         # Section headers
-│   └── ui/                      # Radix UI component library (40+ components)
+├── components/                             # Reusable React components
+│   ├── Card.tsx                            # Content card with animation
+│   ├── ErrorBoundary.tsx                   # Error handling + UI
+│   ├── Footer.tsx                          # Footer with links
+│   ├── Hero.tsx                            # Hero section (Client Component)
+│   ├── Navigation.tsx                      # Header navigation (Client Component)
+│   ├── LazyPersonaCard.tsx                 # Lazy loading wrapper
+│   ├── ThemeProvider.tsx                   # Dark/light mode (Client Component)
+│   ├── SectionTitle.tsx                    # Section headers (Client Component)
+│   └── ui/                                 # Radix UI component library (40+ components)
 │
 ├── lib/
-│   ├── data/                    # Static game data
-│   │   ├── personas.ts          # 65 persona compendium
-│   │   ├── party.ts             # 10 party members with Theurgies
-│   │   ├── combat.ts            # 9 element types
-│   │   ├── classroom.ts         # Q&A questions
-│   │   ├── elizabeth.ts         # 36 Elizabeth requests
-│   │   ├── fusion.ts            # Fusion mechanics
-│   │   ├── social-links.ts      # 21 social links
-│   │   └── story.ts             # Story milestones
+│   ├── data/                               # Static game data
+│   │   ├── personas.ts                     # 65 persona compendium
+│   │   ├── party.ts                        # 10 party members with Theurgies
+│   │   ├── combat.ts                       # 9 element types
+│   │   ├── classroom.ts                    # Q&A questions
+│   │   ├── elizabeth.ts                    # 36 Elizabeth requests
+│   │   ├── fusion.ts                       # Fusion mechanics
+│   │   ├── social-links.ts                 # 21 social links
+│   │   └── story.ts                        # Story milestones & types
 │   │
-│   ├── services/                # External service layers
-│   │   └── api.ts               # dummyjson.com API client
+│   ├── services/                           # External service layers
+│   │   └── api.ts                          # dummyjson.com API client
 │   │
-│   ├── store/                   # Zustand state management
-│   │   └── personaStore.ts      # Persona data store + cache
+│   ├── store/                              # Zustand state management
+│   │   └── personaStore.ts                 # Persona data store + cache
 │   │
-│   ├── hooks/                   # Custom React hooks
-│   │   └── useHybridPersonaData.ts  # Combined API + static data
+│   ├── hooks/                              # Custom React hooks
+│   │   └── useHybridPersonaData.ts         # Combined API + static data
 │   │
-│   ├── utils/                   # Utility functions
-│   │   ├── cache.ts             # localStorage caching
-│   │   └── memoize.ts           # Performance utilities
+│   ├── utils/                              # Utility functions
+│   │   ├── cache.ts                        # localStorage caching
+│   │   └── memoize.ts                      # Performance utilities
 │   │
-│   └── types/                   # TypeScript interfaces
-│       └── api.ts               # API type definitions
+│   └── types/                              # TypeScript interfaces
+│       └── api.ts                          # API type definitions
 │
 ├── styles/
-│   ├── globals.css              # Global styles + Tailwind
-│   └── theme variables          # Dark mode colors
+│   └── globals.css                         # Global styles + Tailwind
 │
-├── App.tsx                      # Root app component
-├── main.tsx                     # Entry point
-├── routes.tsx                   # Route definitions
-└── index.css                    # CSS setup
+├── next-env.d.ts                           # Next.js TypeScript environment declarations
+└── tsconfig.json                           # TypeScript configuration
 ```
 
 ---
 
 ## 🎯 Key Features Explained
 
+### **Advanced Rendering Strategies (SSR, SSG, CSR)**
+Next.js App Router allows fine-grained control over where and when your components are rendered:
+
+-   **Server Components (Default)**: Rendered entirely on the server, ideal for static content or data fetching. They send only HTML and CSS to the browser, significantly reducing client-side JavaScript. Used for SSG and initial SSR renders.
+-   **Client Components (`"use client"`)**: Opt-in to client-side interactivity. They allow the use of hooks, event listeners, and browser APIs. Used for dynamic UI, forms, and animations.
+-   **Static Site Generation (SSG)**: Pre-renders pages at build time. Fast loading, great for SEO.
+-   **Server-Side Rendering (SSR)**: Renders pages on the server for each request. Ensures fresh data and good SEO for dynamic content.
+-   **Client-Side Rendering (CSR)**: Pages fully rendered in the browser. Best for highly interactive, user-specific UIs.
+
 ### **Hybrid Data Approach**
 ```typescript
 // Automatic fallback to static data if API fails
 const personas = apiData.length > 0 ? apiData : STATIC_DATA;
 ```
+This pattern supports initial static data from Server Components, with client-side re-fetching and fallback logic for dynamic data.
 
 ### **Automatic Caching**
 - Fetches data on mount
@@ -180,8 +224,9 @@ const personas = apiData.length > 0 ? apiData : STATIC_DATA;
 | **Lazy Loading** | Only render visible cards |
 | **Memoization** | Skip expensive re-computations |
 | **Debounce** | Reduce API calls during search |
-| **Code Splitting** | Smaller initial bundles (Vite) |
+| **Code Splitting** | Smaller initial bundles (Next.js automatically) |
 | **Static Generation** | Pre-rendered HTML at build time |
+| **Server Components** | Reduce client-side JavaScript load |
 
 ### **Error Resilience**
 - 3 automatic retries on API failure
@@ -196,13 +241,13 @@ const personas = apiData.length > 0 ? apiData : STATIC_DATA;
 | Layer | Technology |
 |-------|------------|
 | **Frontend** | React 18.3, TypeScript 5 |
-| **Build** | Vite 6.3.5 with @vitejs/plugin-react-swc |
+| **Framework** | Next.js 14+ (App Router) |
 | **Styling** | Tailwind CSS, Radix UI (40+ components) |
 | **State** | Zustand |
 | **Animations** | Motion (Framer Motion fork) |
-| **Routing** | React Router v7 |
+| **Routing** | Next.js File-System Router |
 | **Charts** | Recharts |
-| **Deployment** | Vercel (edge-cached static) |
+| **Deployment** | Vercel (optimized for Next.js, edge-cached) |
 
 ---
 
@@ -228,10 +273,10 @@ npm run dev
 npm run build
 
 # Preview production build locally
-npm run preview
+npm run start
 ```
 
-The app will be available at `http://localhost:5173`
+The app will be available at `http://localhost:3000`
 
 ---
 
@@ -268,53 +313,48 @@ Edit `src/components/ThemeProvider.tsx`:
 
 ### Add New Pages
 1. Create folder in `src/app/<page-name>`
-2. Add `page.tsx` file
-3. Update `src/routes.tsx`
+2. Add `page.tsx` and potentially `layout.tsx`, `loading.tsx`, `error.tsx` etc.
+3. If interactivity is needed, create a `ClientComponent.tsx` with `"use client";` and import it into `page.tsx`.
 
 ---
 
 ## 📊 Build & Deployment
 
 ### Build Output
-```
-✓ 2054 modules transformed
-✓ ~607 KB main bundle (180 KB gzipped)
-✓ Static HTML generation
-✓ Build time: ~2.8s
-```
+Next.js will provide detailed build output in your console after `npm run build`, indicating which pages are SSG, SSR, or Client Components.
 
 ### Deploy to Vercel
 1. Push to GitHub
 2. Connect repository to Vercel
-3. Configure `vercel.json` (already included)
+3. Configure `vercel.json` (already included and optimized for Next.js)
 4. Deploy with one click
 
 ### Deploy Anywhere
-The project is fully static after build—serve `dist/` folder from any static host:
-- Netlify
-- GitHub Pages
-- AWS S3 + CloudFront
-- Google Cloud Storage
-- Any CDN
+After `npm run build`, the `.next/` folder contains the optimized production build. This can be deployed to various hosts:
+- Netlify (Next.js build preset)
+- AWS Amplify (Next.js support)
+- DigitalOcean App Platform
+- Any custom Node.js server setup
 
 ---
 
 ## 🔐 Security & Privacy
 
-- ✅ 100% client-side execution
-- ✅ No backend server required
-- ✅ No user tracking or analytics
-- ✅ No cookies or local storage tracking
-- ✅ No data collection
+- ✅ Uses Next.js rendering strategies for optimal security and privacy control
+- ✅ Client Components only run necessary interactive code in the browser
+- ✅ No backend server *required* for SSG/CSR pages
+- ✅ No user tracking or analytics by default
+- ✅ No cookies or local storage tracking by default
+- ✅ No data collection by default
 - ✅ HTTPS-ready
 
 ---
 
 ## 📝 Documentation
 
-- **Main Docs**: `API_INTEGRATION_GUIDE.md`
-- **Rendering Techniques**: `RENDERING_TECHNIQUES.md` (internal reference)
-- **Tracking Tags**: `TRACKING_TAGS_REFERENCE.md` (internal reference)
+-   **Main Docs**: `API_INTEGRATION_GUIDE.md`
+-   **Rendering Techniques**: `RENDERING_TECHNIQUES.md` (internal reference)
+-   **Tracking Tags**: `TRACKING_TAGS_REFERENCE.md` (internal reference)
 
 ---
 
