@@ -1,18 +1,19 @@
 /**
  * API and Data Types
- * Defines types for Persona data fetched from dummyjson API
- * with fallback to static data
+ * 
+ * NOTE: Persona data is now static and sourced from src/lib/data/personas.ts
+ * This file contains generic API types that can be used for other features
+ * that may need external API integration (e.g., news, updates, community data).
+ * 
+ * Personas are NOT fetched from API - they are static game data.
  */
 
-export interface ApiPersona {
+// Generic API response types for future use (not for personas)
+export interface GenericApiResponse<T> {
   id: number;
-  title: string; // Maps to Persona name
-  description: string; // Maps to Persona effect/description
-  price: number; // Maps to Persona level (scaled)
-  stock: number; // Maps to availability
-  rating: number; // Maps to power/effectiveness
-  category: string; // Maps to Arcana
-  thumbnail: string; // Maps to icon/image
+  title: string;
+  description: string;
+  data?: T;
   images?: string[];
   tags?: string[];
 }
@@ -24,12 +25,13 @@ export interface DummyJsonResponse<T> {
   limit: number;
 }
 
-export interface FetchState {
-  personas: ApiPersona[];
+// Generic fetch state for other API integrations (not for personas)
+export interface FetchState<T> {
+  data: T[];
   loading: boolean;
   error: string | null;
   lastFetched: number | null;
-  fromAPI: boolean; // indicates if data came from API or static
+  fromAPI: boolean;
 }
 
 export interface CacheEntry<T> {
