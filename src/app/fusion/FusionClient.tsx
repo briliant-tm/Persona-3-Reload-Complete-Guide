@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { Search, Shield, Sparkles } from "lucide-react";
 import { SectionTitle } from "../../components/SectionTitle";
 import { Card } from "../../components/Card";
 import { type Persona } from "../../lib/data/personas";
 import { useTheme } from "../../components/ThemeProvider";
-import { usePersonaStore } from "../../lib/store/personaStore";
-import { ErrorBoundary, ApiErrorDisplay, PersonaSkeleton } from "../../components/ErrorBoundary";
+// Removed: import { usePersonaStore } from "../../lib/store/personaStore";
+import { ErrorBoundary, PersonaSkeleton } from "../../components/ErrorBoundary"; // Removed ApiErrorDisplay
 
 interface FusionClientProps {
     staticPersonas: Persona[];
@@ -18,23 +18,23 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   
-  // API State Management
-  const { 
-    personas: apiPersonas, 
-    loading, 
-    error, 
-    fromAPI,
-    fetchPersonas,
-    setError
-  } = usePersonaStore();
+  // Removed API State Management
+  // const { 
+  //   personas: apiPersonas, 
+  //   loading, 
+  //   error, 
+  //   fromAPI,
+  //   fetchPersonas,
+  //   setError
+  // } = usePersonaStore();
 
-  // Fetch personas on mount
-  useEffect(() => {
-    fetchPersonas();
-  }, [fetchPersonas]);
+  // Removed fetch personas on mount
+  // useEffect(() => {
+  //   fetchPersonas();
+  // }, [fetchPersonas]);
 
-  // Use API data if available, otherwise fall back to static PERSONAS
-  const personas = apiPersonas.length > 0 ? apiPersonas : staticPersonas;
+  // Use static PERSONAS as the primary data source
+  const personas = staticPersonas;
 
   const filteredPersonas = useMemo(() => 
     personas.filter(p => 
@@ -78,7 +78,7 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
               <span className="text-green-400 text-xs font-bold uppercase bg-green-900/20 px-1.5 py-0.5 rounded">None</span>
             )}
           </div>
-        </div>
+        )}
 
         {persona.null && persona.null.length > 0 && (
           <div className={`flex items-center justify-between p-2 rounded border-l-2 border-blue-500 ${theme === 'dark' ? "bg-[#0a1929]/50" : "bg-gray-100"}`}>
@@ -116,13 +116,10 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
   return (
     <ErrorBoundary>
       <div className={`min-h-screen pt-24 pb-12 px-4 sm:px-6 lg:px-8 transition-colors ${theme === 'dark' ? "bg-[#0a1929]" : "bg-gray-50"}`}>
-        <SectionTitle 
-          title="Fusion Guide" 
-          subtitle={`Search and filter Personas to find the perfect fusion combination. ${fromAPI ? '(API Data)' : '(Static Data)'}`} 
-        />
+        {/* SectionTitle is now rendered in the Server Component */}
         
-        {/* Error Display */}
-        {error && (
+        {/* Removed Error Display */}
+        {/* {error && (
           <div className="mb-6">
             <ApiErrorDisplay 
               error={error} 
@@ -130,7 +127,7 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
               showDetails={false}
             />
           </div>
-        )}
+        )} */}
 
         <div className="flex flex-col md:flex-row gap-6 mb-8">
           <div className="relative flex-grow">
@@ -171,13 +168,13 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
         </div>
 
         <p className={`text-sm mb-4 ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>
-          Showing {filteredPersonas.length} of {personas.length} Personas {fromAPI && '(from API)'}
+          Showing {filteredPersonas.length} of {personas.length} Personas
         </p>
 
-        {/* Loading State */}
-        {loading && filteredPersonas.length === 0 ? (
+        {/* Removed Loading State */}
+        {/* {loading && filteredPersonas.length === 0 ? (
           <PersonaSkeleton count={6} />
-        ) : (
+        ) : ( */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPersonas.map((persona, idx) => (
               <div key={persona.id}>
@@ -185,10 +182,10 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
               </div>
             ))}
           </div>
-        )}
+        {/* )} */}
 
         {/* Empty State */}
-        {!loading && filteredPersonas.length === 0 && (
+        {filteredPersonas.length === 0 && (
           <div className={`text-center py-20 ${theme === 'dark' ? "text-gray-500" : "text-gray-400"}`}>
             <Search size={48} className="mx-auto mb-4 opacity-30" />
             <p className="text-lg">No Personas found matching your search.</p>

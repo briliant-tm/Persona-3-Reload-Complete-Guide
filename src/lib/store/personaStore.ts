@@ -1,26 +1,25 @@
 /**
  * Zustand Store for Persona Data Management
- * Handles fetching, caching, and state management for persona data
- * Integrates with API service and localStorage cache
+ * Handles state management for static persona data.
+ * Removed API integration as per user request to use local static data.
  */
 
 import { create } from 'zustand';
-import { Persona } from '../data/personas';
-import { fetchPersonasFromAPI } from '../services/api';
-import { getCache, setCache, isCacheValid } from '../utils/cache';
+import { Persona, PERSONAS as STATIC_PERSONAS } from '../data/personas';
+// Removed: import { fetchPersonasFromAPI } from '../services/api';
+// Removed: import { getCache, setCache, isCacheValid } from '../utils/cache';
 
 interface PersonaStoreState {
   // Data
   personas: Persona[];
-  fromAPI: boolean;
+  fromAPI: boolean; // Will always be false now
 
   // UI State
   loading: boolean;
   error: string | null;
-  lastFetched: number | null;
 
   // Actions
-  fetchPersonas: () => Promise<void>;
+  loadPersonas: () => void; // Renamed from fetchPersonas
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   reset: () => void;
@@ -31,71 +30,22 @@ interface PersonaStoreState {
   getPersonaTotal: () => number;
 }
 
-const CACHE_KEY = 'personas';
-const CACHE_TTL = 1000 * 60 * 60; // 1 hour
-
 export const usePersonaStore = create<PersonaStoreState>((set, get) => ({
   // Initial state
-  personas: [],
-  fromAPI: false,
+  personas: STATIC_PERSONAS, // Directly use static data
+  fromAPI: false, // Always false
   loading: false,
   error: null,
-  lastFetched: null,
 
   // Actions
-  fetchPersonas: async () => {
-    const state = get();
-
-    // Check if we have valid cache
-    if (isCacheValid(CACHE_KEY)) {
-      const cachedData = getCache<{ personas: Persona[]; timestamp: number }>(
-        CACHE_KEY
-      );
-      if (cachedData) {
-        set({
-          personas: cachedData.personas,
-          fromAPI: false,
-          loading: false,
-          error: null,
-          lastFetched: cachedData.timestamp,
-        });
-        return;
-      }
-    }
-
-    set({ loading: true, error: null });
-
-    try {
-      const apiPersonas = await fetchPersonasFromAPI();
-
-      const cacheData = {
-        personas: apiPersonas,
-        timestamp: Date.now(),
-      };
-
-      setCache(CACHE_KEY, cacheData, CACHE_TTL);
-
-      set({
-        personas: apiPersonas,
-        fromAPI: true,
-        loading: false,
-        error: null,
-        lastFetched: Date.now(),
-      });
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Failed to fetch personas';
-
-      console.error('Persona fetch error:', error);
-
-      set({
-        loading: false,
-        error: errorMessage,
-        fromAPI: false,
-      });
-
-      // Note: personas array remains unchanged (keeps last known good state)
-    }
+  loadPersonas: () => {
+    // For static data, we just set it once. No fetching or caching needed here.
+    set({
+      personas: STATIC_PERSONAS,
+      fromAPI: false,
+      loading: false,
+      error: null,
+    });
   },
 
   setLoading: (loading: boolean) => {
@@ -108,11 +58,10 @@ export const usePersonaStore = create<PersonaStoreState>((set, get) => ({
 
   reset: () => {
     set({
-      personas: [],
+      personas: STATIC_PERSONAS, // Reset to static data
       fromAPI: false,
       loading: false,
       error: null,
-      lastFetched: null,
     });
   },
 
@@ -120,8 +69,9 @@ export const usePersonaStore = create<PersonaStoreState>((set, get) => ({
   getPersonasByArcana: (arcana: string) => {
     const { personas } = get();
     if (!arcana || arcana === 'all') return personas;
+    // Changed filter condition as persona.name is not the arcana
     return personas.filter(
-      p => p.name?.toLowerCase() === arcana.toLowerCase()
+      p => p.arcana?.toLowerCase() === arcana.toLowerCase()
     );
   },
 
