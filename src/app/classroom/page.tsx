@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * TRACKER TAG: [SSG-003-CLASSROOM]
+ * INTERACTIVE: Client-Side Rendering (CSR) for tab switching
  * ============================================================
  *
  * This page uses Static Rendering (SSG) via `force-static`.

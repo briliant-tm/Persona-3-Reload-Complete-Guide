@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * TRACKER TAG: [SSG-007-SOCIAL-LINKS]
+ * INTERACTIVE: Client-Side Rendering (CSR) for search/filter
  * ============================================================
  *
  * This page uses Static Rendering (SSG) via `force-static`.

@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * TRACKER TAG: [SSG-006-ELIZABETH]
+ * INTERACTIVE: Client-Side Rendering (CSR) for filtering/expand
  * ============================================================
  *
  * This page uses Static Rendering (SSG) via `force-static`.

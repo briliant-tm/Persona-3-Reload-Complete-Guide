@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * TRACKER TAG: [SSG-005-FUSION]
+ * INTERACTIVE: Client-Side Rendering (CSR) for search/filter
  * ============================================================
  *
  * This page uses Static Rendering (SSG) via `force-static`.

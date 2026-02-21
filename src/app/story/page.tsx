@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * TRACKER TAG: [SSG-001-STORY]
+ * INTERACTIVE: Client-Side Rendering (CSR) for spoiler toggle
  * ============================================================
  *
  * This page uses Static Rendering (SSG) via `force-static`.

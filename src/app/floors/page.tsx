@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Static Site Generation (SSG)
+ * TRACKER TAG: [SSG-004-FLOORS]
+ * INTERACTIVE: Client-Side Rendering (CSR) for animations
  * ============================================================
  *
  * This page uses Static Rendering (SSG) via `force-static`.

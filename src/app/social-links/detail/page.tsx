@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Incremental Static Regeneration (ISR)
+ * TRACKER TAG: [ISR-001-SOCIAL-LINKS-DETAIL]
+ * INTERACTIVE: Client-Side Rendering (CSR) for UI interactions
  * ============================================================
  *
  * This page uses ISR with a 60-second revalidation window.

@@ -1,6 +1,8 @@
 /**
  * ============================================================
  * RENDERING TECHNIQUE: Server-Side Rendering (SSR)
+ * TRACKER TAG: [SSR-001-CALCULATOR]
+ * INTERACTIVE: Client-Side Rendering (CSR) for calculations
  * ============================================================
  *
  * This page uses Server-Side Rendering (SSR) via `force-dynamic`.
