@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Search, Shield, Sparkles } from "lucide-react";
 import { Card } from "../../components/Card";
 import { type Persona } from "../../lib/data/personas";
@@ -16,7 +16,30 @@ export default function FusionClient({ staticPersonas }: FusionClientProps) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   
-  const personas = staticPersonas;
+  // Ensure we're using ONLY static data - no API calls
+  // Clear any cached API data from localStorage on mount
+  useEffect(() => {
+    // Clear any old API cache that might interfere
+    if (typeof window !== 'undefined') {
+      // Clear all persona-related cache
+      const keys = Object.keys(localStorage);
+      keys.forEach(key => {
+        if (key.toLowerCase().includes('persona') || key.toLowerCase().includes('p3r_cache')) {
+          localStorage.removeItem(key);
+        }
+      });
+    }
+  }, []);
+  
+  // Force use of static data only - no fallback to API
+  const personas = React.useMemo(() => {
+    // Ensure we always use the static personas passed as props
+    if (!staticPersonas || staticPersonas.length === 0) {
+      console.error('FusionClient: No static personas provided!');
+      return [];
+    }
+    return staticPersonas;
+  }, [staticPersonas]);
 
   const filteredPersonas = useMemo(() => 
     personas.filter(p => 
