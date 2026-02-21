@@ -5,4 +5,8 @@
   "env": {
     "VITE_APP_TITLE": "Persona 3 Reload Game Guide"
   }
+  ,
+  "rewrites": [
+    { "source": "/:path*", "destination": "/index.html" }
+  ]
 }
